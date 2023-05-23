@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <ChatComponent/>
-      <footer>thomas 🫠</footer>
+      <footer>by:Thomas 😐</footer>
     </div>
   );
 }
