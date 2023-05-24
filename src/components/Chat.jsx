@@ -3,27 +3,26 @@ import './styles/ChatComponent.css';
 import { enviarMensaje } from '../actions';
 
 const ChatComponent = () => {
-  const [messages, setMessages] = useState([]);
+  const [conversations, setConversations] = useState([]);
   const [inputValue, setInputValue] = useState('');
-  const [respuestas, setRespuestas] = useState([]);
 
-  const recibirRespuesta = (respuesta) => {
-    setRespuestas([...respuestas,respuesta]);
+  const handleSendMessage = async (message) => {
+    try {
+      const respuesta = await enviarMensaje(message);
+      const newConversation = { message, respuesta };
+      setConversations((prevConversations) => [...prevConversations, newConversation]);
+    } catch (error) {
+      console.error('Error al enviar el mensaje:', error);
+    }
   };
+
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
 
-  const handleAudioLoaded = () => {
-    // Reproducir el audio cuando esté cargado
-    const audioElement = document.getElementById('audioElement');
-    audioElement.play();
-  };
-
-  const handleSendMessage = () => {
-    if (inputValue.trim() !== '') {
-        enviarMensaje(inputValue,recibirRespuesta)
-      setMessages([...messages, inputValue]);
+  const handleKeyPress = (e) => {
+    if (e.key === 'Enter') {
+      handleSendMessage(e.target.value);
       setInputValue('');
     }
   };
@@ -31,14 +30,10 @@ const ChatComponent = () => {
   return (
     <div className="chat-container">
       <div className="chat-window">
-        {messages.map((message, index) => (
-          <div key={index} className="message">
-              {message}
-          </div>
-        ))}
-        {respuestas.map((res, index) => (
-          <div key={index} className="res">
-              {res}
+        {conversations.map((conversation, index) => (
+          <div key={index} className="conversation">
+            <div className="message">{conversation.message}</div>
+            <div className="respuesta">{conversation.respuesta}</div>
           </div>
         ))}
       </div>
@@ -47,12 +42,14 @@ const ChatComponent = () => {
           type="text"
           value={inputValue}
           onChange={handleInputChange}
+          onKeyPress={handleKeyPress}
           placeholder="Escribe un mensaje..."
         />
-        <button onClick={handleSendMessage}>Enviar</button>
+        <button onClick={() => handleSendMessage(inputValue)}>Enviar</button>
       </div>
     </div>
   );
 };
 
 export default ChatComponent;
+
