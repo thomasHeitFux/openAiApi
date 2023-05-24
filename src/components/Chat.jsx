@@ -8,15 +8,22 @@ const ChatComponent = () => {
 
   const handleSendMessage = async (message) => {
     try {
-      const respuesta = await enviarMensaje(message);
-      console.log(respuesta);
-      const newConversation = { message, respuesta };
+      const newConversation = { message, respuesta: null };
       setConversations((prevConversations) => [...prevConversations, newConversation]);
+
+      const respuesta = await enviarMensaje(message);
+      newConversation.respuesta = respuesta;
+      setConversations((prevConversations) => {
+        const updatedConversations = [...prevConversations];
+        const index = updatedConversations.findIndex((c) => c === newConversation);
+        updatedConversations[index] = newConversation;
+        return updatedConversations;
+      });
     } catch (error) {
       console.error('Error al enviar el mensaje:', error);
     }
   };
-
+  
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
