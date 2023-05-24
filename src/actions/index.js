@@ -1,4 +1,4 @@
-export async function enviarMensaje(mensaje, recibirRespuesta) {
+export async function enviarMensaje(mensaje) {
     const opciones = {
       method: 'POST',
       body: JSON.stringify({ message: mensaje }),
@@ -14,7 +14,7 @@ export async function enviarMensaje(mensaje, recibirRespuesta) {
       const response = await fetch(url, opciones);
       const data = await response.json();
       const answer = data.answer;
-      recibirRespuesta(answer);
+      return answer
     } catch (error) {
       console.error('Error al enviar la solicitud:', error);
       // Manejar el error adecuadamente
