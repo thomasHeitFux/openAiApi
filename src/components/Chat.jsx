@@ -9,6 +9,7 @@ const ChatComponent = () => {
   const handleSendMessage = async (message) => {
     try {
       const respuesta = await enviarMensaje(message);
+      console.log(respuesta);
       const newConversation = { message, respuesta };
       setConversations((prevConversations) => [...prevConversations, newConversation]);
     } catch (error) {
