@@ -18,7 +18,7 @@
   background: linear-gradient(#f7f9fb, #dfe6ed);
 }
 
-.message{
+.respuesta{
     background-color: #e2f3f2; /* Color de fondo para las respuestas */
     padding: 10px;
     margin-top: 5px; /* Espacio entre el mensaje y la respuesta */
@@ -27,7 +27,7 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
 }
-.respuesta {
+.message {
   background-color: #f2f2f2;
   padding: 10px;
   margin-bottom: 10px;
