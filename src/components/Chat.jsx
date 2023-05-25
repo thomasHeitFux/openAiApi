@@ -3,6 +3,7 @@ import './styles/ChatComponent.css';
 import { enviarMensaje } from '../actions';
 
 const ChatComponent = () => {
+
   const [conversations, setConversations] = useState([]);
   const [inputValue, setInputValue] = useState('');
 
@@ -10,9 +11,14 @@ const ChatComponent = () => {
     try {
       const newConversation = { message, respuesta: null };
       setConversations((prevConversations) => [...prevConversations, newConversation]);
-
+  
       const respuesta = await enviarMensaje(message);
+      console.log(respuesta);
       newConversation.respuesta = respuesta;
+  
+      // Esperar unos segundos antes de actualizar la conversación con la respuesta
+      await new Promise((resolve) => setTimeout(resolve, 2000));
+  
       setConversations((prevConversations) => {
         const updatedConversations = [...prevConversations];
         const index = updatedConversations.findIndex((c) => c === newConversation);
@@ -24,6 +30,7 @@ const ChatComponent = () => {
     }
   };
   
+
   const handleInputChange = (e) => {
     setInputValue(e.target.value);
   };
@@ -41,7 +48,9 @@ const ChatComponent = () => {
         {conversations.map((conversation, index) => (
           <div key={index} className="conversation">
             <div className="message">{conversation.message}</div>
-            <div className="respuesta">{conversation.respuesta}</div>
+            {conversation.respuesta?<audio controls className="respuesta">
+              <source src={conversation.respuesta} type="audio/mpeg" />
+            </audio>:null}
           </div>
         ))}
       </div>
