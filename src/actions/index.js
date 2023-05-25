@@ -1,4 +1,5 @@
 export async function enviarMensaje(mensaje) {
+
     const opciones = {
       method: 'POST',
       body: JSON.stringify({ message: mensaje }),
@@ -8,35 +9,24 @@ export async function enviarMensaje(mensaje) {
       }
     };
   
-    const url = 'https://openaichat.fly.dev/prueba';
+    const url = 'https://openaichat.fly.dev/';
   
     try {
-      const response = await fetch(url, opciones);
+      const response = await fetch(url+'prueba', opciones);
+      console.log(response);
+      if (response.ok) {
       const data = await response.json();
-      const answer = data.answer;
-      return answer
+      const audioUrl = url + data.audioUrl;
+      console.log(audioUrl);
+      return audioUrl
+    }
     } catch (error) {
       console.error('Error al enviar la solicitud:', error);
-      // Manejar el error adecuadamente
     }
-    
-        // if (typeof response === "string") {
-          // console.log(response);
-          // recibirRespuesta(response);
-        // }
-        // else{
-          // const blob = await response.blob()
-          // const audioUrl = URL.createObjectURL(blob);
-          // console.log(audioUrl);
-          // const respuesta = {
-            // contenido: audioUrl,
-            // tipo: 'audio'
-          // };
-          // recibirRespuesta(respuesta);
-        }
-      // }
+  }
         
-        
+
+
   
       
      
