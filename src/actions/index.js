@@ -9,8 +9,8 @@ export async function enviarMensaje(mensaje) {
     }
   };
 
-  // const url = 'https://openaichat.fly.dev/';
-  const url = "http://localhost:8080/";
+  const url = 'https://openaichat.fly.dev/';
+  // const url = "http://localhost:8080/";
 
   try {
     const response = await fetch(url + 'prueba', opciones);
