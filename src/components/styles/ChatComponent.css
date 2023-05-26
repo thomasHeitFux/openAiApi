@@ -27,6 +27,12 @@
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   
 }
+
+.recording {
+  background-color: red; /* Cambia el color de fondo a tu elección */
+  color: white; /* Cambia el color del icono a tu elección */
+}
+
 .message {
   background-color: #f2f2f2;
   padding: 10px;
