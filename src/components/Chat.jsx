@@ -11,6 +11,7 @@ const ChatComponent = () => {
   const [conversations, setConversations] = useState([]);
   const [inputValue, setInputValue] = useState('');
   const [isRecording, setIsRecording] = useState(false);
+  const [language, setLanguage] = useState('es-ES');
 
 
   const handleSendMessage = async (message) => {
@@ -56,7 +57,7 @@ const ChatComponent = () => {
       const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
   
       // Establecer opciones de configuración
-      recognition.lang = 'es-ES'; // Idioma de reconocimiento, en este caso, español
+      recognition.lang = language; // Idioma de reconocimiento, en este caso, español
   
       // Evento que se dispara cuando se detecta un resultado de reconocimiento
       recognition.onresult = (event) => {
@@ -80,6 +81,10 @@ const ChatComponent = () => {
     }
   };
 
+  const handleLanguageChange = (e) => {
+    setLanguage(e.target.value);
+  };
+
   return (
     <div className="chat-container">
       <div className="chat-window">
@@ -101,7 +106,12 @@ const ChatComponent = () => {
           placeholder="Escribe un mensaje..."
         />
         <button onClick={()=>handleSpeech()}>
-          <FontAwesomeIcon icon={!isRecording ? faMicrophone : faCircle} /></button>
+          <FontAwesomeIcon icon={!isRecording ? faMicrophone : faCircle} />
+        </button>
+        <select value={language} onChange={handleLanguageChange}>
+          <option value="es-ES">Español</option>
+          <option value="en-US">English</option>
+        </select>
         <button onClick={() => handleSendMessage(inputValue)}>Enviar</button>
       </div>
     </div>
