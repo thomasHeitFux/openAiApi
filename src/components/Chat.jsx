@@ -48,7 +48,7 @@ const ChatComponent = () => {
         {conversations.map((conversation, index) => (
           <div key={index} className="conversation">
             <div className="message">{conversation.message}</div>
-            {conversation.respuesta?<audio controls className="respuesta">
+            {conversation.respuesta?<audio autoPlay controls className="respuesta">
               <source src={conversation.respuesta} type="audio/mpeg" />
             </audio>:null}
           </div>
